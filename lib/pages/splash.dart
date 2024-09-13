@@ -115,7 +115,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     print(
-        "$phoneNumber phone number saved in local-----------------------------------------");
+        "$phoneNumber phone number saved in local-------------------------------------------");
   }
 
   @override
