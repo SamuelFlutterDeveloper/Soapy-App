@@ -433,7 +433,7 @@ class _DeepcleanState extends State<Deepclean> {
                                 width: MediaQuery.of(context).size.width *
                                     0.03), // Small space between texts
                             Text(
-                              '₹500.00',
+                              '500.00 INR',
                               style: TextStyle(
                                   fontSize:
                                       MediaQuery.of(context).size.width * 0.05,

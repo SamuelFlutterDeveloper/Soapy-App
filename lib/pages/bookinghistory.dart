@@ -363,7 +363,7 @@ class _BookinghistoryState extends State<Bookinghistory> {
             Text('Service Time: $serviceTime'),
             const SizedBox(height: 10),
             Text(
-              'Grand Total: ₹$grandTotal',
+              'Grand Total: $grandTotal INR',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.red,

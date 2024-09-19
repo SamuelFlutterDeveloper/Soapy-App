@@ -21,7 +21,7 @@ class DialogHelper {
   }) async {
     // Generate a random transaction ID and format it for better readability
     String transactionId = _generateFormattedTransactionID();
-     // Save the generated transaction ID in SharedPreferences
+    // Save the generated transaction ID in SharedPreferences
     await _saveTransactionId(transactionId);
 
     return showDialog<void>(
@@ -44,7 +44,7 @@ class DialogHelper {
               ),
               SizedBox(height: 20),
               Text(
-                '₹${totalAmount.toStringAsFixed(2)} Paid', // Show full paid amount
+                '${totalAmount.toStringAsFixed(2)} INR  Paid', // Show full paid amount
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -116,29 +116,27 @@ class DialogHelper {
   // Helper function to save transaction ID in local storage (SharedPreferences)
   static Future<void> _saveTransactionId(String transactionId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('transactionId', transactionId); // Store the transaction ID
+    await prefs.setString(
+        'transactionId', transactionId); // Store the transaction ID
   }
 
   // Function to retrieve transaction ID from local storage
   static Future<String?> getTransactionId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('transactionId');
-     // Retrieve the transaction ID
-     
+    // Retrieve the transaction ID
   }
-  //to print the transaction id 
+
+  //to print the transaction id
   void _printTransactionId() async {
-  String? transactionId = await DialogHelper.getTransactionId();
-  
-  if (transactionId != null) {
-    print('Stored Transaction ID: $transactionId');
-  } else {
-    print('No Transaction ID found.');
+    String? transactionId = await DialogHelper.getTransactionId();
+
+    if (transactionId != null) {
+      print('Stored Transaction ID: $transactionId');
+    } else {
+      print('No Transaction ID found.');
+    }
   }
-}
-
-
-  
 
   // static void showInfoDialog(BuildContext context,
   //     {required String title, required String message}) {}

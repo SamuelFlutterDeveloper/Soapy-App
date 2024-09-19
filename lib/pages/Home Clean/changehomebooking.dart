@@ -656,7 +656,7 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                           ),
                         ),
                         Text(
-                          '₹$subTotal',
+                          '$subTotal INR',
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width * 0.05,
                             fontWeight: FontWeight.bold,
@@ -677,7 +677,7 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                           ),
                         ),
                         Text(
-                          '₹${gstAmount.toStringAsFixed(2)}', // Show GST amount with 2 decimal places
+                          '${gstAmount.toStringAsFixed(2)} INR', // Show GST amount with 2 decimal places
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width * 0.05,
                             fontWeight: FontWeight.bold,
@@ -698,7 +698,7 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                           ),
                         ),
                         Text(
-                          '₹${discountAmount.toStringAsFixed(2)}', // Show Discount amount with 2 decimal places
+                          '${discountAmount.toStringAsFixed(2)} INR', // Show Discount amount with 2 decimal places
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width * 0.05,
                             fontWeight: FontWeight.bold,
@@ -720,7 +720,7 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                           ),
                         ),
                         Text(
-                          '₹${grandTotal.toStringAsFixed(2)}', // Show Grand Total amount with 2 decimal places
+                          '${grandTotal.toStringAsFixed(2)} INR', // Show Grand Total amount with 2 decimal places
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width * 0.05,
                             fontWeight: FontWeight.bold,

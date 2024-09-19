@@ -397,7 +397,7 @@ class _HomebookingState extends State<Homebooking> {
                                 decoration: InputDecoration(
                                   hintText: selectedDate != null
                                       ? DateFormat.yMd().format(selectedDate!)
-                                      : 'xx/xx/yyyy',
+                                      : 'dd/mm/yyyy',
                                   suffixIcon: Icon(
                                     Icons.calendar_today,
                                     color: Colors.black,

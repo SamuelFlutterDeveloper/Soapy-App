@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:soapy_app/pages/app_page.dart';
+
 import 'package:soapy_app/pages/customs/colors.dart';
 import 'package:soapy_app/pages/customs/dailoguebox.dart';
-import 'package:soapy_app/pages/demo.dart';
+
 import 'package:soapy_app/pages/home.dart';
 
 class Payment extends StatefulWidget {
@@ -42,10 +43,10 @@ class _PaymentState extends State<Payment> {
       totalAmount: widget.grandTotal, // Pass the full total amount here
       onDone: () {
         Navigator.of(context).pop(); // Close the dialog
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Home()), // Go to Home
-        );
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => AppPage()), // Go to Home
+            (route) => false);
       },
     );
   }
@@ -56,7 +57,6 @@ class _PaymentState extends State<Payment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         title: Text(
           'Payment Method',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -201,7 +201,7 @@ class _PaymentState extends State<Payment> {
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Text(
-          'Pay ₹${widget.grandTotal.toStringAsFixed(2)}',
+          'Pay ${widget.grandTotal.toStringAsFixed(2)} INR',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: isSelected ? Colors.white : Colors.black,

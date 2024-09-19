@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soapy_app/pages/Location/location.dart';
+import 'package:soapy_app/pages/app_page.dart';
 import 'package:soapy_app/pages/customs/colors.dart';
+import 'package:soapy_app/pages/home.dart';
 
 class Username extends StatefulWidget {
   const Username({super.key});
@@ -85,6 +87,10 @@ class _UsernameState extends State<Username> {
                           fontSize: 17,
                           fontWeight: FontWeight.bold),
                       decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Mycolor.maincolor,
+                        ),
                         hintText: 'Enter your username',
                         hintStyle: TextStyle(
                           color: Colors.grey,
@@ -107,13 +113,15 @@ class _UsernameState extends State<Username> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.034),
                   GestureDetector(
                     onTap: () {
-                      String? validationResult = notEmpty(_usernameController.text);
+                      String? validationResult =
+                          notEmpty(_usernameController.text);
                       if (validationResult != null) {
                         // Show the error message using ScaffoldMessenger
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(validationResult),
-                            backgroundColor: const Color.fromARGB(255, 158, 11, 0),
+                            backgroundColor:
+                                const Color.fromARGB(255, 158, 11, 0),
                           ),
                         );
                       } else {
@@ -122,10 +130,9 @@ class _UsernameState extends State<Username> {
                         print(
                             "Entered Username:------------------------ ${_usernameController.text}");
                         Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => Location()),
-                          (route)=>false
-                        );
+                            context,
+                            MaterialPageRoute(builder: (context) => AppPage()),
+                            (route) => false);
                       }
                     },
                     child: Container(

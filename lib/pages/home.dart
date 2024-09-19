@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -7,6 +8,7 @@ import 'package:soapy_app/pages/Location/location.dart';
 import 'package:soapy_app/pages/bookinghistory.dart';
 import 'package:soapy_app/pages/bottomsheet.dart';
 import 'package:soapy_app/pages/customs/colors.dart';
+
 import 'package:soapy_app/pages/profile.dart';
 
 class Home extends StatefulWidget {
@@ -183,6 +185,30 @@ class _HomeState extends State<Home> {
     _isIndustrialParkSelected = false;
   }
 
+  Future<bool> _onWillPop() async {
+    return await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Confirm Exit'),
+            content: Text('Do you really want to exit the app?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () =>
+                    Navigator.of(context).pop(false), // Stay in app
+                child: Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                  SystemNavigator.pop(); // Exit the app
+                },
+                child: Text('Yes'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final myitems = [
@@ -203,906 +229,925 @@ class _HomeState extends State<Home> {
       ),
     ];
 
-    return Scaffold(
-      key: _scaffoldKey, // Assign the key to the Scaffold
-      // backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.165),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadiusDirectional.only(
-              bottomStart: Radius.circular(25),
-              bottomEnd: Radius.circular(25),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        key: _scaffoldKey, // Assign the key to the Scaffold
+        // backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize:
+              Size.fromHeight(MediaQuery.of(context).size.height * 0.165),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadiusDirectional.only(
+                bottomStart: Radius.circular(25),
+                bottomEnd: Radius.circular(25),
+              ),
+              color: Mycolor.maincolor,
             ),
-            color: Mycolor.maincolor,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25, right: 18, top: 45),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Location',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 25, right: 18, top: 45),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Location',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Location()));
-                        },
-                        child: Icon(Icons.location_on, color: Colors.white)),
-                    SizedBox(width: 5),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Location()));
-                        },
-                        child: Text(
-                          "$address2",
-                          //------------------ widget.location,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 7,
-                    ),
-                    Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(3),
-                        color: const Color.fromARGB(255, 122, 119, 119)
-                            .withOpacity(0.2),
-                      ),
-                      child: Icon(
-                        Icons.notifications,
-                        color: Colors.white,
-                        size: 25,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 40,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: 'Search...',
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Color.fromARGB(252, 81, 186, 247),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide.none,
-                            ),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 20),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(
-                        Icons.format_list_bulleted_rounded,
-                        color: Color.fromARGB(251, 27, 171, 255),
-                        size: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      // drawer: Drawer(
-      //   child: ListView(
-      //     padding: EdgeInsets.zero,
-      //     children: [
-      //       DrawerHeader(
-      //         decoration: BoxDecoration(
-      //           color: Mycolor.maincolor,
-      //         ),
-      //         child: Column(
-      //           mainAxisAlignment: MainAxisAlignment.center,
-      //           children: [
-      //             CircleAvatar(
-      //               radius: 50.0,
-      //               backgroundImage: AssetImage('assets/images/MAN.png'),
-      //             ),
-      //             const SizedBox(height: 5.0), // Space between image and name
-      //             Center(
-      //               child: Text(
-      //                 _usernameController.text.isNotEmpty
-      //                     ? _usernameController.text
-      //                     : 'Your Name', // Default if no name is stored
-      //                 style: const TextStyle(
-      //                   fontSize: 17.0,
-      //                   fontWeight: FontWeight.bold,
-      //                   color: Colors.white,
-      //                 ),
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       // Other drawer items can go here
-      //       // ListTile(
-      //       //   leading: Icon(Icons.home),
-      //       //   title: Text('Home'),
-      //       //   onTap: () {
-      //       //     // Do something when 'Home' is tapped
-      //       //   },
-      //       // ),
-      //       // ListTile(
-      //       //   leading: Icon(Icons.settings),
-      //       //   title: Text('Settings'),
-      //       //   onTap: () {
-      //       //     // Do something when 'Settings' is tapped
-      //       //   },
-      //       // ),
-      //     ],
-      //   ),
-      // ),
-
-      body: SingleChildScrollView(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width *
-                      0.57), // 77% of the screen width
-              child: Text(
-                '#Special for you',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Mycolor.maincolor),
-              ),
-            ),
-            SizedBox(height: 20),
-            CarouselSlider(
-                options: CarouselOptions(
-                  autoPlay: true,
-                  height: 190,
-                  // autoPlayCurve: Curves.fastOutSlowIn,
-                  // autoPlayAnimationDuration: const Duration(seconds: 2),
-                  autoPlayInterval: const Duration(seconds: 5),
-                  viewportFraction: 1,
-                  enlargeCenterPage: true,
-                  aspectRatio: 200,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      myCurrentIndex = index;
-                    });
-                  },
-                ),
-                items: myitems),
-            SizedBox(height: 15),
-            AnimatedSmoothIndicator(
-              activeIndex: myCurrentIndex,
-              count: myitems.length,
-              effect: WormEffect(
-                dotHeight: 8,
-                dotWidth: 8,
-                spacing: 5,
-                dotColor: const Color.fromARGB(255, 172, 171, 171),
-                activeDotColor: Mycolor.maincolor,
-                paintStyle: PaintingStyle.fill,
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              height: 260,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(color: Colors.white),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, top: 5),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Text(
-                            "Categories",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Mycolor.maincolor),
-                          ),
-                        ),
-                        Spacer(), // Pushes the "See All" text to the right side
-                        GestureDetector(
+                  SizedBox(height: 5),
+                  Row(
+                    children: [
+                      GestureDetector(
                           onTap: () {
-                            // Handle the "see all" tap event
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Location()));
+                          },
+                          child: Icon(Icons.location_on, color: Colors.white)),
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Location()));
                           },
                           child: Text(
-                            "See All",
+                            "$address2",
+                            //------------------ widget.location,
                             style: TextStyle(
-                              color: Mycolor.maincolor,
-                              fontSize: 11,
+                              fontSize: 13,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 7,
+                      ),
+                      Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: const Color.fromARGB(255, 122, 119, 119)
+                              .withOpacity(0.2),
+                        ),
+                        child: Icon(
+                          Icons.notifications,
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 40,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: 'Search...',
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Color.fromARGB(252, 81, 186, 247),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide.none,
+                              ),
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 20),
                             ),
                           ),
                         ),
-                        SizedBox(
-                            width: 18), // Optional padding on the right side
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleHomeColor,
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  color: _isHomeSelected
-                                      ? _selectedContainerColor
-                                      : _defaultContainerColor,
-                                  // shape: BoxShape.circle,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Color.fromARGB(255, 247, 245, 245),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/home.png',
-                                      height: 40,
-                                      width: 40,
-                                      color: _isHomeSelected
-                                          ? _selectedImageColor
-                                          : _defaultImageColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Home',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
+                      ),
+                      SizedBox(width: 15),
+                      Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleVillasColor,
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  color: _isVillasSelected
-                                      ? _selectedContainerColor
-                                      : _defaultContainerColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                  // shape: BoxShape.circle,
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Color.fromARGB(255, 247, 245, 245),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/villas.png',
-                                      height: 37,
-                                      width: 37,
-                                      color: _isVillasSelected
-                                          ? _selectedImageColor
-                                          : _defaultImageColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Villas',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage()));
+                          },
+                          child: Icon(
+                            Icons.person,
+                            color: Color.fromARGB(251, 27, 171, 255),
+                            size: 25,
+                          ),
                         ),
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleApartmentColor,
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  color: _isApartmentSelected
-                                      ? _selectedContainerColor
-                                      : _defaultContainerColor,
-                                  // shape: BoxShape.circle,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Color.fromARGB(255, 247, 245, 245),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/appartment.png',
-                                      height: 37,
-                                      width: 37,
-                                      color: _isApartmentSelected
-                                          ? _selectedImageColor
-                                          : _defaultImageColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Appartment',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleOfficeColor,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 27),
-                                child: Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                    color: _isOfficeSelected
-                                        ? _selectedContainerColor
-                                        : _defaultContainerColor,
-                                    // shape: BoxShape.circle,
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      width: 1.5,
-                                      color: Color.fromARGB(255, 247, 245, 245),
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        spreadRadius: 1,
-                                        blurRadius: 5,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/office.png',
-                                        height: 37,
-                                        width: 37,
-                                        color: _isOfficeSelected
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 27),
-                              child: Text(
-                                'Office',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleCommercialSpaceColor,
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  color: _isCommercialSpaceSelected
-                                      ? _selectedContainerColor
-                                      : _defaultContainerColor,
-                                  // shape: BoxShape.circle,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Color.fromARGB(255, 247, 245, 245),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/commercial space.png',
-                                      height: 43,
-                                      width: 43,
-                                      color: _isCommercialSpaceSelected
-                                          ? _selectedImageColor
-                                          : _defaultImageColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Commercial',
-                              style: TextStyle(fontSize: 11.5),
-                            ),
-                            Text(
-                              'Space',
-                              style: TextStyle(fontSize: 11.5),
-                            )
-                            // Padding(
-                            //   padding: const EdgeInsets.only(right: 8),
-                            //   child: Text(
-                            //     'Commercial',
-                            //     style: TextStyle(fontSize: 12),
-                            //   ),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(right: 8),
-                            //   child: Text(
-                            //     'Space',
-                            //     style: TextStyle(fontSize: 12),
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleEventColor,
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  color: _isEventSelected
-                                      ? _selectedContainerColor
-                                      : _defaultContainerColor,
-                                  // shape: BoxShape.circle,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Color.fromARGB(255, 247, 245, 245),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/event.png',
-                                      height: 43,
-                                      width: 43,
-                                      color: _isEventSelected
-                                          ? _selectedImageColor
-                                          : _defaultImageColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Event',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                            Text(''),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleHospitalColor,
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  color: _isHospitalSelected
-                                      ? _selectedContainerColor
-                                      : _defaultContainerColor,
-                                  // shape: BoxShape.circle,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: Color.fromARGB(255, 247, 245, 245),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/hospital.png',
-                                      height: 43,
-                                      width: 43,
-                                      color: _isHospitalSelected
-                                          ? _selectedImageColor
-                                          : _defaultImageColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Hospital',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                            Text(''),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: _toggleIndustrialParkColor,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 27),
-                                child: Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                    color: _isIndustrialParkSelected
-                                        ? _selectedContainerColor
-                                        : _defaultContainerColor,
-                                    // shape: BoxShape.circle,
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      width: 1.5,
-                                      color: Color.fromARGB(255, 247, 245, 245),
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        spreadRadius: 1,
-                                        blurRadius: 5,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/industrial-park.png',
-                                        height: 43,
-                                        width: 43,
-                                        color: _isIndustrialParkSelected
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 27),
-                              child: Text(
-                                'Industrial',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            Text(''),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: Text(
-                    "Popular Service",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Mycolor.maincolor),
+          ),
+        ),
+        // drawer: Drawer(
+        //   child: ListView(
+        //     padding: EdgeInsets.zero,
+        //     children: [
+        //       DrawerHeader(
+        //         decoration: BoxDecoration(
+        //           color: Mycolor.maincolor,
+        //         ),
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             CircleAvatar(
+        //               radius: 50.0,
+        //               backgroundImage: AssetImage('assets/images/MAN.png'),
+        //             ),
+        //             const SizedBox(height: 5.0), // Space between image and name
+        //             Center(
+        //               child: Text(
+        //                 _usernameController.text.isNotEmpty
+        //                     ? _usernameController.text
+        //                     : 'Your Name', // Default if no name is stored
+        //                 style: const TextStyle(
+        //                   fontSize: 17.0,
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Colors.white,
+        //                 ),
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //       // Other drawer items can go here
+        //       // ListTile(
+        //       //   leading: Icon(Icons.home),
+        //       //   title: Text('Home'),
+        //       //   onTap: () {
+        //       //     // Do something when 'Home' is tapped
+        //       //   },
+        //       // ),
+        //       // ListTile(
+        //       //   leading: Icon(Icons.settings),
+        //       //   title: Text('Settings'),
+        //       //   onTap: () {
+        //       //     // Do something when 'Settings' is tapped
+        //       //   },
+        //       // ),
+        //     ],
+        //   ),
+        // ),
+
+        body: SingleChildScrollView(
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    right: MediaQuery.of(context).size.width *
+                        0.57), // 77% of the screen width
+                child: Text(
+                  '#Special for you',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Mycolor.maincolor),
+                ),
+              ),
+              SizedBox(height: 20),
+              CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    height: 190,
+                    // autoPlayCurve: Curves.fastOutSlowIn,
+                    // autoPlayAnimationDuration: const Duration(seconds: 2),
+                    autoPlayInterval: const Duration(seconds: 5),
+                    viewportFraction: 1,
+                    enlargeCenterPage: true,
+                    aspectRatio: 200,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        myCurrentIndex = index;
+                      });
+                    },
+                  ),
+                  items: myitems),
+              SizedBox(height: 15),
+              AnimatedSmoothIndicator(
+                activeIndex: myCurrentIndex,
+                count: myitems.length,
+                effect: WormEffect(
+                  dotHeight: 8,
+                  dotWidth: 8,
+                  spacing: 5,
+                  dotColor: const Color.fromARGB(255, 172, 171, 171),
+                  activeDotColor: Mycolor.maincolor,
+                  paintStyle: PaintingStyle.fill,
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                height: 260,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 5),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Text(
+                              "Categories",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Mycolor.maincolor),
+                            ),
+                          ),
+                          Spacer(), // Pushes the "See All" text to the right side
+                          GestureDetector(
+                            onTap: () {
+                              // Handle the "see all" tap event
+                            },
+                            child: Text(
+                              "See All",
+                              style: TextStyle(
+                                color: Mycolor.maincolor,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                              width: 18), // Optional padding on the right side
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleHomeColor,
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: _isHomeSelected
+                                        ? _selectedContainerColor
+                                        : _defaultContainerColor,
+                                    // shape: BoxShape.circle,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Color.fromARGB(255, 247, 245, 245),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/home.png',
+                                        height: 40,
+                                        width: 40,
+                                        color: _isHomeSelected
+                                            ? _selectedImageColor
+                                            : _defaultImageColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Home',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleVillasColor,
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: _isVillasSelected
+                                        ? _selectedContainerColor
+                                        : _defaultContainerColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                    // shape: BoxShape.circle,
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Color.fromARGB(255, 247, 245, 245),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/villas.png',
+                                        height: 37,
+                                        width: 37,
+                                        color: _isVillasSelected
+                                            ? _selectedImageColor
+                                            : _defaultImageColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Villas',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleApartmentColor,
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: _isApartmentSelected
+                                        ? _selectedContainerColor
+                                        : _defaultContainerColor,
+                                    // shape: BoxShape.circle,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Color.fromARGB(255, 247, 245, 245),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/appartment.png',
+                                        height: 37,
+                                        width: 37,
+                                        color: _isApartmentSelected
+                                            ? _selectedImageColor
+                                            : _defaultImageColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Appartment',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleOfficeColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 27),
+                                  child: Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                      color: _isOfficeSelected
+                                          ? _selectedContainerColor
+                                          : _defaultContainerColor,
+                                      // shape: BoxShape.circle,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1.5,
+                                        color:
+                                            Color.fromARGB(255, 247, 245, 245),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/office.png',
+                                          height: 37,
+                                          width: 37,
+                                          color: _isOfficeSelected
+                                              ? _selectedImageColor
+                                              : _defaultImageColor,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 27),
+                                child: Text(
+                                  'Office',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleCommercialSpaceColor,
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: _isCommercialSpaceSelected
+                                        ? _selectedContainerColor
+                                        : _defaultContainerColor,
+                                    // shape: BoxShape.circle,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Color.fromARGB(255, 247, 245, 245),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/commercial space.png',
+                                        height: 43,
+                                        width: 43,
+                                        color: _isCommercialSpaceSelected
+                                            ? _selectedImageColor
+                                            : _defaultImageColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Commercial',
+                                style: TextStyle(fontSize: 11.5),
+                              ),
+                              Text(
+                                'Space',
+                                style: TextStyle(fontSize: 11.5),
+                              )
+                              // Padding(
+                              //   padding: const EdgeInsets.only(right: 8),
+                              //   child: Text(
+                              //     'Commercial',
+                              //     style: TextStyle(fontSize: 12),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(right: 8),
+                              //   child: Text(
+                              //     'Space',
+                              //     style: TextStyle(fontSize: 12),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleEventColor,
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: _isEventSelected
+                                        ? _selectedContainerColor
+                                        : _defaultContainerColor,
+                                    // shape: BoxShape.circle,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Color.fromARGB(255, 247, 245, 245),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/event.png',
+                                        height: 43,
+                                        width: 43,
+                                        color: _isEventSelected
+                                            ? _selectedImageColor
+                                            : _defaultImageColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Event',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              Text(''),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleHospitalColor,
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: _isHospitalSelected
+                                        ? _selectedContainerColor
+                                        : _defaultContainerColor,
+                                    // shape: BoxShape.circle,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Color.fromARGB(255, 247, 245, 245),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/hospital.png',
+                                        height: 43,
+                                        width: 43,
+                                        color: _isHospitalSelected
+                                            ? _selectedImageColor
+                                            : _defaultImageColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Hospital',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              Text(''),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleIndustrialParkColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 27),
+                                  child: Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                      color: _isIndustrialParkSelected
+                                          ? _selectedContainerColor
+                                          : _defaultContainerColor,
+                                      // shape: BoxShape.circle,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1.5,
+                                        color:
+                                            Color.fromARGB(255, 247, 245, 245),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/industrial-park.png',
+                                          height: 43,
+                                          width: 43,
+                                          color: _isIndustrialParkSelected
+                                              ? _selectedImageColor
+                                              : _defaultImageColor,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 27),
+                                child: Text(
+                                  'Industrial',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                              Text(''),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.12,
-                              width: MediaQuery.of(context).size.width * 0.45,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                // borderRadius: BorderRadius.circular(14),
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/slider-1.png"),
-                                    fit: BoxFit.fill),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Floor Cleaning',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.12,
-                              width: MediaQuery.of(context).size.width * 0.45,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                // borderRadius: BorderRadius.circular(14),
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/SLIDER-2.png"),
-                                    fit: BoxFit.fill),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Carpet Cleaning',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: Text(
+                      "Popular Service",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Mycolor.maincolor),
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.12,
-                              width: MediaQuery.of(context).size.width * 0.45,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                // borderRadius: BorderRadius.circular(14),
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/slider3.png"),
-                                    fit: BoxFit.fill),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.12,
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  // borderRadius: BorderRadius.circular(14),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/slider-1.png"),
+                                      fit: BoxFit.fill),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Floor Cleaning',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.12,
-                              width: MediaQuery.of(context).size.width * 0.45,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                // borderRadius: BorderRadius.circular(14),
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/SLIDER-2.png"),
-                                    fit: BoxFit.fill),
+                              SizedBox(
+                                height: 5,
                               ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Carpet Cleaning',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 35,
-                ),
-              ],
-            ),
-          ],
+                              Text(
+                                'Floor Cleaning',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.12,
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  // borderRadius: BorderRadius.circular(14),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/SLIDER-2.png"),
+                                      fit: BoxFit.fill),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Carpet Cleaning',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.12,
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  // borderRadius: BorderRadius.circular(14),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/slider3.png"),
+                                      fit: BoxFit.fill),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Floor Cleaning',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.12,
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  // borderRadius: BorderRadius.circular(14),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/SLIDER-2.png"),
+                                      fit: BoxFit.fill),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Carpet Cleaning',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 35,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
 
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 76, 189, 255),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-        ),
-        child: MotionTabBar(
-          initialSelectedTab: "Home",
-          useSafeArea: true,
-          labels: ["Profile", "Home", "Booking History"],
-          icons: [Icons.person, Icons.home, Icons.history],
-          tabSize: 52,
-          tabBarHeight: 55,
-          tabBarColor: Colors.transparent,
-          textStyle: const TextStyle(
-            fontSize: 15,
-            color: Colors.white,
-          ),
-          tabIconColor: Colors.black,
-          tabIconSize: 28.0,
-          tabIconSelectedSize: 26.0,
-          tabSelectedColor: Colors.white,
-          tabIconSelectedColor: Colors.black,
-          onTabItemSelected: (int value) {
-            setState(() {
-              myCurrentIndex = value;
-              if (value == 0) {
-                // Navigate to Profile page when "Profile" tab is tapped
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()));
-              }
-            });
-            setState(() {
-              myCurrentIndex = value;
-              if (value == 2) {
-                // Navigate to Profile page when "Profile" tab is tapped
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Bookinghistory()),
-                );
-              }
-            });
-          },
-        ),
+        // bottomNavigationBar: Container(
+        //   decoration: const BoxDecoration(
+        //     color: Color.fromARGB(255, 76, 189, 255),
+        //     borderRadius: BorderRadius.only(
+        //       topLeft: Radius.circular(20.0),
+        //       topRight: Radius.circular(20.0),
+        //     ),
+        //   ),
+        //   child: MotionTabBar(
+        //     initialSelectedTab: "Home",
+        //     useSafeArea: true,
+        //     labels: ["Product", "Home", "Booking History"],
+        //     icons: [Icons.shopping_cart, Icons.home, Icons.history],
+        //     tabSize: 52,
+        //     tabBarHeight: 55,
+        //     tabBarColor: Colors.transparent,
+        //     textStyle: const TextStyle(
+        //       fontSize: 15,
+        //       color: Colors.white,
+        //     ),
+        //     tabIconColor: Colors.black,
+        //     tabIconSize: 28.0,
+        //     tabIconSelectedSize: 26.0,
+        //     tabSelectedColor: Colors.white,
+        //     tabIconSelectedColor: Colors.black,
+        //     onTabItemSelected: (int value) {
+        //       setState(() {
+        //         myCurrentIndex = value;
+        //         if (value == 0) {
+        //           // Navigate to Profile page when "Profile" tab is tapped
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                   builder: (context) => ProductDetails()));
+        //         }
+        //       });
+        //       setState(() {
+        //         myCurrentIndex = value;
+        //         if (value == 2) {
+        //           // Navigate to Profile page when "Profile" tab is tapped
+        //           Navigator.push(
+        //             context,
+        //             MaterialPageRoute(builder: (context) => Bookinghistory()),
+        //           );
+        //         }
+        //       });
+        //     },
+        //   ),
+        // ),
       ),
     );
   }

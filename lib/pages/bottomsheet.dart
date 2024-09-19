@@ -24,7 +24,7 @@ class _BottomsheetState extends State<Bottomsheet> {
   final List<Map<String, String>> items = [
     {'image': 'assets/images/five.jpg', 'text': 'Home Standard Clean'},
     {'image': 'assets/images/first.png', 'text': 'Home Deep Clean'},
-    {'image': 'assets/images/sec.jpg', 'text': 'Desting'},
+    {'image': 'assets/images/sec.jpg', 'text': 'Dusting'},
     {'image': 'assets/images/third.jpg', 'text': 'Floor Mopping'},
     {'image': 'assets/images/four.jpg', 'text': 'Post Renovation'},
     {'image': 'assets/images/five.jpg', 'text': 'Toilet Clean'},
