@@ -141,70 +141,76 @@ class _BottomsheetState extends State<Bottomsheet> {
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   final item = items[index];
-                  return Container(
-                    margin: const EdgeInsets.only(
-                        bottom: 10), // Space between items
-                    height: 87,
-                    width: MediaQuery.of(context).size.width *
-                        0.9, // 90% of screen width
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 5,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        children: [
-                          // Image at the start
-                          Container(
-                            height: 65,
-                            width: 65,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
-                                item['image']!,
-                                fit: BoxFit
-                                    .cover, // Change to cover for better aspect ratio
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                              width: 25), // Spacing between image and text
-                          Expanded(
-                            child: Text(
-                              item['text']!,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () => _onIconTap(index),
-                            child: Container(
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                size: 17,
-                                color: Colors.white,
-                              ),
-                            ),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Deepclean()));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                          bottom: 10), // Space between items
+                      height: 87,
+                      width: MediaQuery.of(context).size.width *
+                          0.9, // 90% of screen width
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 2),
                           ),
                         ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          children: [
+                            // Image at the start
+                            Container(
+                              height: 65,
+                              width: 65,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  item['image']!,
+                                  fit: BoxFit
+                                      .cover, // Change to cover for better aspect ratio
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                                width: 25), // Spacing between image and text
+                            Expanded(
+                              child: Text(
+                                item['text']!,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () => _onIconTap(index),
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  size: 17,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

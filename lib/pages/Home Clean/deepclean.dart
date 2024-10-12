@@ -120,21 +120,46 @@ class _DeepcleanState extends State<Deepclean> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Responsive header image
-            Container(
-              height: MediaQuery.of(context).size.height *
-                  0.3, // 30% of screen height
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
+            Stack(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height *
+                      0.3, // 30% of screen height
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/slider-1.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/slider-1.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
+                Positioned(
+                  top: 20,
+                  left: 10,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context); // Navigate back
+                      },
+                    ),
+                  ),
+                )
+              ],
             ),
+
             SizedBox(height: 15),
             // Responsive title text
             Padding(

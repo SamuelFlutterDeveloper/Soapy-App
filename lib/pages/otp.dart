@@ -57,13 +57,15 @@ class _OtpState extends State<Otp> {
   Widget build(BuildContext context) {
     String formattedPhoneNumber =
         formatPhoneNumber(widget.phone, widget.countryCode);
+    double sh = MediaQuery.of(context).size.height;
+    double sw = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: double.infinity,
+          height: sh,
+          width: sw,
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/Login.jpg'), fit: BoxFit.fill),
@@ -73,7 +75,7 @@ class _OtpState extends State<Otp> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.11,
+                height: sh * 0.15,
               ),
               Text(
                 'Verifying your\nCode',
@@ -83,8 +85,8 @@ class _OtpState extends State<Otp> {
                     color: Colors.white),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 120,
+              SizedBox(
+                height: sh * 0.15,
               ),
               Text(
                 'Please type the verification code \n sent to $formattedPhoneNumber',
@@ -118,7 +120,7 @@ class _OtpState extends State<Otp> {
                 },
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.06,
+                height: sh * 0.06,
               ),
               GestureDetector(
                 onTap: isPinComplete
@@ -163,7 +165,7 @@ class _OtpState extends State<Otp> {
                     width: 6,
                   ),
                   Text(
-                    'RECENT!',
+                    'RESEND!',
                     style: TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,

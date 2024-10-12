@@ -224,7 +224,8 @@ class _LoginState extends State<Login> {
     setState(() {
       phoneNumber = prefs.getString('phone_number') ?? '';
     });
-    print("$phoneNumber phone number save in local-----------------------------------------");
+    print(
+        "$phoneNumber phone number save in local-----------------------------------------");
   }
 
   Future<void> _savePhoneNumber() async {
@@ -234,11 +235,14 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    double sh = MediaQuery.of(context).size.height;
+    double sw = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: double.infinity,
+          height: sh,
+          width: sw,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/Login.jpg'),
@@ -249,7 +253,9 @@ class _LoginState extends State<Login> {
             key: _formKey, // Assigning the form key to the Form widget
             child: Column(
               children: [
-                const SizedBox(height: 120),
+                SizedBox(
+                  height: sh * 0.15,
+                ),
                 const Text(
                   'Lets get your',
                   style: TextStyle(
@@ -266,7 +272,9 @@ class _LoginState extends State<Login> {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 115),
+                SizedBox(
+                  height: sh * 0.15,
+                ),
                 Text(
                   'Please enter your',
                   style: TextStyle(
@@ -350,7 +358,6 @@ class _LoginState extends State<Login> {
                             phone: '$selectedCountryCode$phoneNumber',
                           ),
                         ),
-                       
                       );
                     } else {
                       // Show an error message if the validation fails

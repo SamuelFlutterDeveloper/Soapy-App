@@ -386,6 +386,7 @@ import 'package:soapy_app/pages/Location/manual%20location.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:soapy_app/pages/app_page.dart';
 import 'package:soapy_app/pages/customs/colors.dart';
 import 'package:soapy_app/pages/home.dart';
 
@@ -560,7 +561,7 @@ class _LocationState extends State<Location> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Home(
+                        builder: (context) => AppPage(
                             // location: Address,
                             )),
                     (route) => false);

@@ -394,11 +394,11 @@ class _BookinghistoryState extends State<Bookinghistory> {
 
   String _getRandomLocation() {
     final locations = [
-      'Main Hall',
-      'Bedroom',
-      'Kitchen',
-      'Bathroom',
-      'Living Room',
+      'Downtown Manhattan, New York, USA',
+      'Shibuya, Tokyo, Japan',
+      'Bondi Beach, Sydney, Australia',
+      'South Kensington, London, UK',
+      'Jumeirah, Dubai, UAE',
     ];
     return locations[Random().nextInt(locations.length)];
   }

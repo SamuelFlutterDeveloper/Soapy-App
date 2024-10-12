@@ -51,13 +51,16 @@ class _UsernameState extends State<Username> {
 
   @override
   Widget build(BuildContext context) {
+    double sh = MediaQuery.of(context).size.height;
+    double sw = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height,
+              width: sw,
+              height: sh,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/Login.jpg'),
@@ -67,7 +70,7 @@ class _UsernameState extends State<Username> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.18,
+                    height: sh * 0.18,
                   ), // Space at the top of the screen
                   Text(
                     'Username',
@@ -77,7 +80,7 @@ class _UsernameState extends State<Username> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.18),
+                  SizedBox(height: sh * 0.18),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: TextField(
@@ -91,7 +94,7 @@ class _UsernameState extends State<Username> {
                           Icons.person,
                           color: Mycolor.maincolor,
                         ),
-                        hintText: 'Enter your username',
+                        hintText: 'Enter your name',
                         hintStyle: TextStyle(
                           color: Colors.grey,
                         ),
