@@ -10,9 +10,11 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:soapy_app/pages/Home%20Clean/deepclean.dart';
+import 'package:soapy_app/pages/Location/map.dart';
 import 'package:soapy_app/pages/app_page.dart';
 import 'package:soapy_app/pages/demo.dart';
 import 'package:soapy_app/pages/home.dart';
+import 'package:soapy_app/pages/login.dart';
 
 import 'package:soapy_app/pages/reviewbottom.dart';
 

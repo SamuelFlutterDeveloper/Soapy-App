@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Import to format and handle date selection
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +15,7 @@ class Homebooking extends StatefulWidget {
 class _HomebookingState extends State<Homebooking> {
   String? selectedArea;
   String? selectedRoomType;
+  String? selectedDuration;
   int? numberOfRooms;
   String address1 = '';
   DateTime? selectedDate;
@@ -66,6 +68,7 @@ class _HomebookingState extends State<Homebooking> {
 // this for validator to go next page
   void _continueToNextPage() {
     if (selectedArea == null ||
+        selectedDuration == null ||
         selectedRoomType == null ||
         numberOfRooms == null ||
         selectedDate == null ||
@@ -88,6 +91,7 @@ class _HomebookingState extends State<Homebooking> {
             selectedDate: selectedDate,
             selectedTime: selectedTime,
             location: locationController.text,
+            selectedDuration: selectedDuration,
           ),
         ),
       );
@@ -214,58 +218,57 @@ class _HomebookingState extends State<Homebooking> {
                   ),
                 ),
                 SizedBox(height: 10),
-                DropdownButtonFormField<String>(
-                  value: selectedArea,
-                  hint: Text('Room Type'),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedArea = newValue;
-                    });
-                  },
-                  items: <String>[
-                    'Pooja Room',
-                    'Guest Room',
-                    'Study Room',
-                    'Utility Room',
-                    'Store Room',
-                    'Main Hall',
-                    'Living Room',
-                    'Kitchen',
-                    'Bathroom',
-                    'Bedroom',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.grey, // Border color
-                        width: 1.0, // Border thickness
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.grey
-                            .shade300, // Border color for the enabled state
-                        width: 1.0, // Border thickness
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Mycolor
-                            .maincolor, // Border color for the focused state
-                        width: 1.0, // Border thickness
-                      ),
-                    ),
+                Container(
+                  // Adjust width as needed
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade300, width: 1.0),
                   ),
-                  isExpanded: true, // Ensures the dropdown takes full width
+                  child: DropdownButtonFormField2<String>(
+                    value: selectedArea,
+                    decoration: InputDecoration(
+                      border: InputBorder.none, // Removes default border
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    ),
+                    hint: Text('Room Type'),
+                    items: <String>[
+                      'Pooja Room',
+                      'Guest Room',
+                      'Study Room',
+                      'Utility Room',
+                      'Store Room',
+                      'Main Hall',
+                      'Living Room',
+                      'Kitchen',
+                      'Bathroom',
+                      'Bedroom',
+                      'Entire House',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedArea = newValue;
+                      });
+                    },
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: 200, // Adjust dropdown height
+                      width: 150, // Adjust dropdown width
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey.shade300),
+                        color: Colors.white, // Background color
+                      ),
+                    ),
+                    isExpanded: false, // Prevents full width expansion
+                  ),
                 ),
+
                 SizedBox(height: 20), // Add space between the dropdowns
                 Text(
                   'Cleaning Area',
@@ -276,54 +279,51 @@ class _HomebookingState extends State<Homebooking> {
                   ),
                 ),
                 SizedBox(height: 10),
-                DropdownButtonFormField<String>(
-                  value: selectedRoomType,
-                  hint: Text('Select Area'),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedRoomType = newValue;
-                    });
-                  },
-                  items: <String>[
-                    '50 sq ft (5 ft × 10 ft)',
-                    '60 sq ft (6 ft × 10 ft)',
-                    '80 sq ft (8 ft × 10 ft)',
-                    '100 sq ft (10 ft × 10 ft)',
-                    '120 sq ft (10 ft × 12 ft)',
-                    '150 sq ft (10 ft × 15 ft)',
-                    'above 200 sq ft (10 ft × 20 ft)',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.grey, // Border color
-                        width: 1.0, // Border thickness
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.grey
-                            .shade300, // Border color for the enabled state
-                        width: 1.0, // Border thickness
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Mycolor
-                            .maincolor, // Border color for the focused state
-                        width: 1.0, // Border thickness
-                      ),
-                    ),
+                Container(
+                  // Adjust width as needed
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade300, width: 1.0),
                   ),
-                  isExpanded: true, // Ensures the dropdown takes full width
+                  child: DropdownButtonFormField2<String>(
+                    value: selectedRoomType,
+                    decoration: InputDecoration(
+                      border: InputBorder.none, // Removes default border
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    ),
+                    hint: Text('Selected Area'),
+                    items: <String>[
+                      '50 sq ft (5 ft × 10 ft) ',
+                      '60 sq ft (6 ft × 10 ft)',
+                      '80 sq ft (8 ft × 10 ft)',
+                      '100 sq ft (10 ft × 10 ft)',
+                      '120 sq ft (10 ft × 12 ft)',
+                      '150 sq ft (10 ft × 15 ft)',
+                      'above 200 sq ft (10 ft × 20 ft)',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedRoomType = newValue;
+                      });
+                    },
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: 200, // Adjust dropdown height
+                      width: 250, // Adjust dropdown width
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey.shade300),
+                        color: Colors.white, // Background color
+                      ),
+                    ),
+                    isExpanded: false, // Prevents full width expansion
+                  ),
                 ),
                 SizedBox(
                     height:
@@ -336,41 +336,99 @@ class _HomebookingState extends State<Homebooking> {
                       color: Colors.black),
                 ),
                 SizedBox(height: 10),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: 'Enter Number of Rooms',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.grey, // Border color
-                        width: 1.0, // Border thickness
+                Container(
+                  height: 50,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      hintText: 'Enter Number of Rooms',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.grey, // Border color
+                          width: 1.0, // Border thickness
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.grey
+                              .shade300, // Border color for the enabled state
+                          width: 1.0, // Border thickness
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Mycolor
+                              .maincolor, // Border color for the focused state
+                          width: 1.0, // Border thickness
+                        ),
                       ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.grey
-                            .shade300, // Border color for the enabled state
-                        width: 1.0, // Border thickness
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Mycolor
-                            .maincolor, // Border color for the focused state
-                        width: 1.0, // Border thickness
-                      ),
-                    ),
+                    onChanged: (String value) {
+                      setState(() {
+                        numberOfRooms = int.tryParse(value);
+                      });
+                    },
                   ),
-                  onChanged: (String value) {
-                    setState(() {
-                      numberOfRooms = int.tryParse(value);
-                    });
-                  },
                 ),
                 SizedBox(height: 20),
+
+                Text(
+                  'Duration',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+
+                Container(
+                  // Adjust width as needed
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade300, width: 1.0),
+                  ),
+                  child: DropdownButtonFormField2<String>(
+                    value: selectedDuration,
+                    decoration: InputDecoration(
+                      border: InputBorder.none, // Removes default border
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    ),
+                    hint: Text('Duration'),
+                    items: <String>[
+                      'Weekly',
+                      'Monthly',
+                      'Quarterly',
+                      'Yearly',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedDuration = newValue;
+                      });
+                    },
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: 200, // Adjust dropdown height
+                      width: 250, // Adjust dropdown width
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey.shade300),
+                        color: Colors.white, // Background color
+                      ),
+                    ),
+                    isExpanded: false, // Prevents full width expansion
+                  ),
+                ),
+                SizedBox(height: 20),
+
                 // Row for Date and Time
                 Row(
                   children: [

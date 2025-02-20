@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,16 +12,17 @@ class Changehomebooking extends StatefulWidget {
   final DateTime? selectedDate;
   final TimeOfDay? selectedTime;
   final String? location;
+  final String? selectedDuration;
 
-  const Changehomebooking({
-    super.key,
-    this.selectedArea,
-    this.selectedRoomType,
-    this.numberOfRooms,
-    this.selectedDate,
-    this.selectedTime,
-    this.location,
-  });
+  const Changehomebooking(
+      {super.key,
+      this.selectedArea,
+      this.selectedRoomType,
+      this.numberOfRooms,
+      this.selectedDate,
+      this.selectedTime,
+      this.location,
+      this.selectedDuration});
 
   @override
   State<Changehomebooking> createState() => _ChangehomebookingState();
@@ -29,6 +31,7 @@ class Changehomebooking extends StatefulWidget {
 class _ChangehomebookingState extends State<Changehomebooking> {
   late String? selectedArea;
   late String? selectedRoomType;
+  late String? selectedDuration;
   late int? numberOfRooms;
   late DateTime? selectedDate;
   late TimeOfDay? selectedTime;
@@ -50,6 +53,7 @@ class _ChangehomebookingState extends State<Changehomebooking> {
     numberOfRooms = widget.numberOfRooms;
     selectedDate = widget.selectedDate;
     selectedTime = widget.selectedTime;
+    selectedDuration = widget.selectedDuration;
     locationController = TextEditingController(text: widget.location);
     _calculateGrandTotal(); // Calculate grandTotal on initialization
   }
@@ -92,7 +96,6 @@ class _ChangehomebookingState extends State<Changehomebooking> {
         subTotal * discountPercentage / 100; // Calculate Discount
     final double totalIncludingGst =
         subTotal + gstAmount; // Total including GST
-    grandTotal = totalIncludingGst - discountAmount; // Calculate Grand Total
   }
 
   Future<void> _saveBookingData() async {
@@ -126,6 +129,7 @@ class _ChangehomebookingState extends State<Changehomebooking> {
 
     // Save grand total, defaulting to 0.0 if null
     await prefs.setDouble('grandTotal', grandTotal ?? 0.0);
+    await prefs.setString('selected_duration', selectedDuration ?? '');
 
     print('Data is stored successfully');
   }
@@ -203,10 +207,54 @@ class _ChangehomebookingState extends State<Changehomebooking> {
         hour: 0, minute: 0); // Default to midnight if parsing fails
   }
 
+  int getSubTotal(String? selectedDuration, int? numberOfRooms, int baseValue) {
+    int multiplier = 1; // Default multiplier (for no selection)
+
+    switch (selectedDuration) {
+      case 'Weekly':
+        multiplier = 7;
+        break;
+      case 'Monthly':
+        multiplier = 30;
+        break;
+      case 'Quarterly':
+        multiplier = 90;
+        break;
+      case 'Yearly':
+        multiplier = 365;
+        break;
+    }
+
+    return (numberOfRooms ?? 0) * baseValue * multiplier;
+  }
+
   @override
   Widget build(BuildContext context) {
     final int baseValue = 500; // Base value for calculation
-    final int subTotal = (numberOfRooms ?? 0) * baseValue; // Calculate subtotal
+    int getSubTotal(
+        String? selectedDuration, int? numberOfRooms, int baseValue) {
+      int multiplier = 1; // Default multiplier (for no selection)
+
+      switch (selectedDuration) {
+        case 'Weekly':
+          multiplier = 7;
+          break;
+        case 'Monthly':
+          multiplier = 30;
+          break;
+        case 'Quarterly':
+          multiplier = 90;
+          break;
+        case 'Yearly':
+          multiplier = 365;
+          break;
+      }
+
+      return (numberOfRooms ?? 0) * baseValue * multiplier;
+    }
+
+    final int subTotal =
+        getSubTotal(selectedDuration, numberOfRooms, baseValue);
     final double gstPercentage = 2.0;
     final double gstAmount = subTotal * gstPercentage / 100; // Calculate GST
     final double discountPercentage = 5.0;
@@ -368,40 +416,57 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                 ),
                 SizedBox(height: 10),
                 if (isAreaEditable)
-                  DropdownButtonFormField<String>(
-                    value: selectedArea,
-                    hint: Text('Room Type'),
-
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedArea = newValue;
-                      });
-                    },
-                    items: <String>[
-                      'Pooja Room',
-                      'Guest Room',
-                      'Study Room',
-                      'Utility Room',
-                      'Store Room',
-                      'Main Hall',
-                      'Living Room',
-                      'Kitchen',
-                      'Bathroom',
-                      'Bedroom',
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                  Container(
+                    // Adjust width as needed
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border:
+                          Border.all(color: Colors.grey.shade300, width: 1.0),
                     ),
-                    isExpanded: true, // Ensures the dropdown takes full width
+                    child: DropdownButtonFormField2<String>(
+                      value: selectedArea,
+                      decoration: InputDecoration(
+                        border: InputBorder.none, // Removes default border
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      ),
+                      hint: Text('Room Type'),
+                      items: <String>[
+                        'Pooja Room',
+                        'Guest Room',
+                        'Study Room',
+                        'Utility Room',
+                        'Store Room',
+                        'Main Hall',
+                        'Living Room',
+                        'Kitchen',
+                        'Bathroom',
+                        'Bedroom',
+                        'Entire House',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedArea = newValue;
+                        });
+                      },
+                      dropdownStyleData: DropdownStyleData(
+                        maxHeight: 200, // Adjust dropdown height
+                        width: 150, // Adjust dropdown width
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey.shade300),
+                          color: Colors.white, // Background color
+                        ),
+                      ),
+                      isExpanded: false, // Prevents full width expansion
+                    ),
                   ),
-
                 SizedBox(height: 20),
 
                 // Room Type Section
@@ -435,34 +500,52 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                 ),
                 SizedBox(height: 10),
                 if (isRoomTypeEditable)
-                  DropdownButtonFormField<String>(
-                    value: selectedRoomType,
-                    hint: Text('Select Area'),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedRoomType = newValue;
-                      });
-                    },
-                    items: <String>[
-                      '50 sq ft (5 ft × 10 ft)',
-                      '60 sq ft (6 ft × 10 ft)',
-                      '80 sq ft (8 ft × 10 ft)',
-                      '100 sq ft (10 ft × 10 ft)',
-                      '120 sq ft (10 ft × 12 ft)',
-                      '150 sq ft (10 ft × 15 ft)',
-                      'above 200 sq ft (10 ft × 20 ft)',
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                  Container(
+                    // Adjust width as needed
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border:
+                          Border.all(color: Colors.grey.shade300, width: 1.0),
                     ),
-                    isExpanded: true, // Ensures the dropdown takes full width
+                    child: DropdownButtonFormField2<String>(
+                      value: selectedRoomType,
+                      decoration: InputDecoration(
+                        border: InputBorder.none, // Removes default border
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      ),
+                      hint: Text('Selected Area'),
+                      items: <String>[
+                        '50 sq ft (5 ft × 10 ft) ',
+                        '60 sq ft (6 ft × 10 ft)',
+                        '80 sq ft (8 ft × 10 ft)',
+                        '100 sq ft (10 ft × 10 ft)',
+                        '120 sq ft (10 ft × 12 ft)',
+                        '150 sq ft (10 ft × 15 ft)',
+                        'above 200 sq ft (10 ft × 20 ft)',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedRoomType = newValue;
+                        });
+                      },
+                      dropdownStyleData: DropdownStyleData(
+                        maxHeight: 200, // Adjust dropdown height
+                        width: 250, // Adjust dropdown width
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey.shade300),
+                          color: Colors.white, // Background color
+                        ),
+                      ),
+                      isExpanded: false, // Prevents full width expansion
+                    ),
                   ),
 
                 SizedBox(height: 20),
@@ -498,23 +581,106 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                 ),
                 SizedBox(height: 10),
                 if (isNumberOfRoomsEditable)
-                  TextField(
-                    keyboardType: TextInputType.number,
-                    controller: TextEditingController(
-                        text: numberOfRooms != null
-                            ? numberOfRooms.toString()
-                            : ''),
-                    decoration: InputDecoration(
-                      hintText: 'Enter Number of Rooms',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade300),
+                    ),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: TextEditingController(
+                          text: numberOfRooms != null
+                              ? numberOfRooms.toString()
+                              : ''),
+                      decoration: InputDecoration(
+                        hintText: 'Enter Number of Rooms',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onChanged: (String value) {
+                        setState(() {
+                          numberOfRooms = int.tryParse(value);
+                        });
+                      },
+                    ),
+                  ),
+
+                SizedBox(height: 20),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Duration',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
-                    onChanged: (String value) {
-                      setState(() {
-                        numberOfRooms = int.tryParse(value);
-                      });
-                    },
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isAreaEditable = !isAreaEditable;
+                        });
+                      },
+                      child: Text(
+                        'Change',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                if (isAreaEditable)
+                  Container(
+                    // Adjust width as needed
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border:
+                          Border.all(color: Colors.grey.shade300, width: 1.0),
+                    ),
+                    child: DropdownButtonFormField2<String>(
+                      value: selectedDuration,
+                      decoration: InputDecoration(
+                        border: InputBorder.none, // Removes default border
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      ),
+                      hint: Text('Duration'),
+                      items: <String>[
+                        'Weekly',
+                        'Monthly',
+                        'Quarterly',
+                        'Yearly',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedDuration = newValue;
+                        });
+                      },
+                      dropdownStyleData: DropdownStyleData(
+                        maxHeight: 200, // Adjust dropdown height
+                        width: 250, // Adjust dropdown width
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey.shade300),
+                          color: Colors.white, // Background color
+                        ),
+                      ),
+                      isExpanded: false, // Prevents full width expansion
+                    ),
                   ),
 
                 SizedBox(height: 20),
@@ -553,20 +719,24 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                   GestureDetector(
                     onTap: () => _selectDate(context),
                     child: AbsorbPointer(
-                      child: TextField(
-                        controller: TextEditingController(
-                            text: selectedDate != null
-                                ? DateFormat('yyyy-MM-dd').format(selectedDate!)
-                                : ''),
-                        decoration: InputDecoration(
-                          hintText: 'Select Date',
-                          suffixIcon: Icon(
-                            Icons.calendar_today,
-                            color: Colors.black,
-                            size: 28,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        height: 50,
+                        child: TextField(
+                          controller: TextEditingController(
+                              text: selectedDate != null
+                                  ? DateFormat('yyyy-MM-dd')
+                                      .format(selectedDate!)
+                                  : ''),
+                          decoration: InputDecoration(
+                            hintText: 'Select Date',
+                            suffixIcon: Icon(
+                              Icons.calendar_today,
+                              color: Colors.black,
+                              size: 28,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
                         ),
                       ),
@@ -609,27 +779,76 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                   GestureDetector(
                     onTap: () => _selectTime(context),
                     child: AbsorbPointer(
-                      child: TextField(
-                        controller: TextEditingController(
-                            text: selectedTime != null
-                                ? selectedTime!.format(context)
-                                : ''),
-                        decoration: InputDecoration(
-                          hintText: 'Select Time',
-                          suffixIcon: Icon(
-                            Icons.access_alarm_outlined,
-                            color: Colors.black,
-                            size: 28,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        height: 50,
+                        child: TextField(
+                          controller: TextEditingController(
+                              text: selectedTime != null
+                                  ? selectedTime!.format(context)
+                                  : ''),
+                          decoration: InputDecoration(
+                            hintText: 'Select Time',
+                            suffixIcon: Icon(
+                              Icons.access_alarm_outlined,
+                              color: Colors.black,
+                              size: 28,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
 
-                // SizedBox(height: 20),
+                SizedBox(height: 20),
+
+                // Location Section
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Sevice Location',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isLocationEditable = !isLocationEditable;
+                        });
+                      },
+                      child: Text(
+                        'Change',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                if (isLocationEditable)
+                  Container(
+                    height: 50,
+                    child: TextField(
+                      controller: locationController,
+                      decoration: InputDecoration(
+                        hintText: 'Enter Location',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                SizedBox(height: 20),
                 Divider(thickness: 2, color: Colors.grey[300]),
 
                 // Sub Total Section
@@ -733,48 +952,6 @@ class _ChangehomebookingState extends State<Changehomebooking> {
                 ),
                 Divider(thickness: 2, color: Colors.grey[300]),
 
-                SizedBox(height: 20),
-
-                // Location Section
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Sevice Location',
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.05,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isLocationEditable = !isLocationEditable;
-                        });
-                      },
-                      child: Text(
-                        'Change',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                if (isLocationEditable)
-                  TextField(
-                    controller: locationController,
-                    decoration: InputDecoration(
-                      hintText: 'Enter Location',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
                 SizedBox(height: 30),
                 Align(
                   alignment: Alignment.center,

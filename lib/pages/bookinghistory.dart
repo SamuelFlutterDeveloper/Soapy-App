@@ -27,6 +27,7 @@ class _BookinghistoryState extends State<Bookinghistory> {
   double? grandTotal;
   String phoneNumber = '';
   String username = '';
+  String? selectedDuration;
 
   @override
   void initState() {
@@ -60,6 +61,7 @@ class _BookinghistoryState extends State<Bookinghistory> {
       numberOfRooms = prefs.getInt('numberOfRooms') ?? 0;
       selectedRoomType = prefs.getString('roomType') ?? 'Not selected';
       selectedArea = prefs.getString('cleaningArea') ?? 'Not selected';
+      selectedDuration = prefs.getString('selected_duration') ?? 'Not selected';
 
       // Retrieve and parse date
       String? dateString = prefs.getString('date');
@@ -172,6 +174,7 @@ class _BookinghistoryState extends State<Bookinghistory> {
                 screenWidth,
                 roomType: 'Bathroom',
                 cleaningArea: '50 sq ft (5 ft × 10 ft)',
+                selectedDuration: selectedDuration ?? 'Not Available',
                 date: '7/7/2024',
                 time: '02:00 AM',
                 location: _getRandomLocation(),
@@ -194,6 +197,7 @@ class _BookinghistoryState extends State<Bookinghistory> {
               _buildBookingContainer(
                 screenWidth,
                 roomType: 'Living Room',
+                selectedDuration: selectedDuration ?? 'Not Available',
                 cleaningArea: '100 sq ft (10 ft × 10 ft)',
                 date: '10/8/2024',
                 time: '12:00 PM',
@@ -218,6 +222,7 @@ class _BookinghistoryState extends State<Bookinghistory> {
                 _buildBookingContainer(
                   screenWidth,
                   roomType: selectedArea ?? 'Not Available',
+                  selectedDuration: selectedDuration ?? 'Not Available',
                   cleaningArea: selectedRoomType ?? 'Not Available',
                   date: selectedDate != null
                       ? '${selectedDate!.month}/${selectedDate!.day}/${selectedDate!.year}'
@@ -265,6 +270,7 @@ class _BookinghistoryState extends State<Bookinghistory> {
     required String serviceManPhone,
     required String serviceDate,
     required String serviceTime,
+    required String? selectedDuration,
     double grandTotal = 0.0,
     bool showDetails = false,
     required VoidCallback onToggleDetails,
@@ -325,6 +331,8 @@ class _BookinghistoryState extends State<Bookinghistory> {
           Text('Time: $time'),
           const SizedBox(height: 5),
           Text('Location: $location'),
+          const SizedBox(height: 5),
+          Text('Duration: $selectedDuration'),
           const SizedBox(height: 10),
           GestureDetector(
             onTap: onToggleDetails,
