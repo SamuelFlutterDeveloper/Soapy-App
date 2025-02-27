@@ -4,12 +4,16 @@ import 'package:flutter/services.dart';
 import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:soapy_app/Cleaning/cleaning_main_page.dart';
+import 'package:soapy_app/electrician/electrician_main_page.dart';
 import 'package:soapy_app/pages/Location/location.dart';
 import 'package:soapy_app/pages/bookinghistory.dart';
 import 'package:soapy_app/pages/bottomsheet.dart';
 import 'package:soapy_app/pages/customs/colors.dart';
 
 import 'package:soapy_app/pages/profile.dart';
+import 'package:soapy_app/pest%20control/pest_control_main.dart';
+import 'package:soapy_app/plumping/pluming_main_page.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -63,6 +67,11 @@ class _HomeState extends State<Home> {
   bool _isHospitalSelected = false;
   bool _isIndustrialParkSelected = false;
 
+  bool _isPostControl = false;
+  bool _isCleaning = false;
+  bool _isPlumbing = false;
+  bool _iselectrician = false;
+
   Color _defaultContainerColor = Colors.white;
   Color _selectedContainerColor = Mycolor.maincolor;
 
@@ -92,6 +101,58 @@ class _HomeState extends State<Home> {
       showModalBottomSheet(
         context: context,
         builder: (context) => const Bottomsheet(),
+      );
+    });
+  }
+
+  void _togglePostControlColor() {
+    setState(() {
+      _resetSelections();
+      _isPostControl = true;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => const PestControlMain(),
+      );
+    });
+  }
+
+  void _toggleCleaningColor() {
+    setState(() {
+      _resetSelections();
+      _isCleaning = true;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => const CleaningMainPage(),
+      );
+    });
+  }
+
+  void _togglePlumbingColor() {
+    setState(() {
+      _resetSelections();
+      _isPlumbing = true;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => const PlumingMainPage(),
+      );
+    });
+  }
+
+  void _toggleElectricianColor() {
+    setState(() {
+      _resetSelections();
+      _iselectrician = true;
+    });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => const ElectricianMainPage(),
       );
     });
   }
@@ -183,6 +244,10 @@ class _HomeState extends State<Home> {
     _isEventSelected = false;
     _isHospitalSelected = false;
     _isIndustrialParkSelected = false;
+    _isPostControl = false;
+    _isCleaning = false;
+    _isPlumbing = false;
+    _iselectrician = false;
   }
 
   Future<bool> _onWillPop() async {
@@ -467,7 +532,7 @@ class _HomeState extends State<Home> {
                 height: 15,
               ),
               Container(
-                height: 260,
+                padding: EdgeInsets.symmetric(vertical: 5),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(color: Colors.white),
                 child: Padding(
@@ -957,9 +1022,227 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleCleaningColor,
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: _isCleaning
+                                        ? _selectedContainerColor
+                                        : _defaultContainerColor,
+                                    // shape: BoxShape.circle,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Color.fromARGB(255, 247, 245, 245),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/home.png',
+                                        height: 40,
+                                        width: 40,
+                                        color: _isCleaning
+                                            ? _selectedImageColor
+                                            : _defaultImageColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Cleaning',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _togglePostControlColor,
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: _isPostControl
+                                        ? _selectedContainerColor
+                                        : _defaultContainerColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                    // shape: BoxShape.circle,
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Color.fromARGB(255, 247, 245, 245),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/villas.png',
+                                        height: 37,
+                                        width: 37,
+                                        color: _isPostControl
+                                            ? _selectedImageColor
+                                            : _defaultImageColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Pest Control',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _togglePlumbingColor,
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: _isPlumbing
+                                        ? _selectedContainerColor
+                                        : _defaultContainerColor,
+                                    // shape: BoxShape.circle,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      width: 1.5,
+                                      color: Color.fromARGB(255, 247, 245, 245),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/appartment.png',
+                                        height: 37,
+                                        width: 37,
+                                        color: _isPlumbing
+                                            ? _selectedImageColor
+                                            : _defaultImageColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Plumbing',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: _toggleElectricianColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 27),
+                                  child: Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                      color: _iselectrician
+                                          ? _selectedContainerColor
+                                          : _defaultContainerColor,
+                                      // shape: BoxShape.circle,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1.5,
+                                        color:
+                                            Color.fromARGB(255, 247, 245, 245),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/office.png',
+                                          height: 37,
+                                          width: 37,
+                                          color: _iselectrician
+                                              ? _selectedImageColor
+                                              : _defaultImageColor,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 27),
+                                child: Text(
+                                  'Electrician',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

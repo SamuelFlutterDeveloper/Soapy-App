@@ -61,6 +61,8 @@ dependencies:
   http: ^0.13.4
   google_api_headers: ^1.6.0
   dropdown_button2: ^2.3.9
+  image_picker: ^1.1.2
+  path_provider: ^2.1.2
 # flutter_icons:
 #   image_path: "icon/Soapy-2.jpg"
 #   android: true

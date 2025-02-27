@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soapy_app/pages/customs/colors.dart';
@@ -14,6 +16,8 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _usernameController = TextEditingController();
   String phoneNumber = '';
   String address3 = '';
+  String? _base64Image;
+  final TextEditingController _uservechicalnumber = TextEditingController();
 
   @override
   void initState() {
@@ -36,6 +40,15 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _loadPhoneNumber() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     phoneNumber = prefs.getString('phone_number') ?? '';
+    _uservechicalnumber.text = prefs.getString('uservechical_number') ?? '';
+
+    String? base64Image = prefs.getString('user_image');
+
+    if (base64Image != null) {
+      setState(() {
+        _base64Image = base64Image;
+      });
+    }
   }
 
   Future<void> _loadLocationData() async {
@@ -70,8 +83,15 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  radius: 50.0,
-                  backgroundImage: AssetImage('assets/images/MAN.png'),
+                  radius: 50,
+                  backgroundImage: _base64Image != null
+                      ? MemoryImage(
+                          base64Decode(_base64Image!)) // If image is stored
+                      : AssetImage('assets/images/MAN.png')
+                          as ImageProvider, // Default image
+                  child: _base64Image == null
+                      ? Icon(Icons.camera_alt, size: 30, color: Colors.white)
+                      : null,
                 ),
                 SizedBox(height: 10.0), // Space between image and name
                 Text(
@@ -128,6 +148,25 @@ class _ProfilePageState extends State<ProfilePage> {
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.directions_bike,
+                      size: 20,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      _uservechicalnumber.text,
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                   ],
