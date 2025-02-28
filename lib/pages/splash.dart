@@ -159,6 +159,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _loadPhoneNumber();
+    _getCurrentLocation();
   }
 
   Future<void> _loadPhoneNumber() async {
@@ -259,7 +260,8 @@ class _SplashScreenState extends State<SplashScreen> {
     await prefs.setDouble('latitude', position.latitude);
     await prefs.setDouble('longitude', position.longitude);
     await prefs.setString('address', address);
-    print("Location data saved--------------------------"); // For debugging purposes
+    print(
+        "Location data saved--------------------------"); // For debugging purposes
   }
 
   @override

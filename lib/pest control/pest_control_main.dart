@@ -27,10 +27,10 @@ class _PestControlMainState extends State<PestControlMain> {
   final List<Map<String, String>> items = [
     {
       'image': 'assets/images/five.jpg',
-      'text': 'Cockroach Control,Ant & General Pest Control'
+      'text': 'assets/images/Cockroach & Ant.jpeg'
     },
-    {'image': 'assets/images/first.png', 'text': 'Termite Control'},
-    {'image': 'assets/images/sec.jpg', 'text': 'Bed Bugs Control'},
+    {'image': 'assets/images/Termite-damage.jpg', 'text': 'Termite Control'},
+    {'image': 'assets/images/Bed Bug.jpeg', 'text': 'Bed Bugs Control'},
 
     // Add more items if needed
   ];

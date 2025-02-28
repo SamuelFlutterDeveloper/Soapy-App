@@ -43,7 +43,7 @@ class _ListCleaningPageState extends State<ListCleaningPage> {
               'Deep cleaning of tiles, floor, and WC',
               'Removal of hard water stains and dirt',
             ],
-            'image': 'assets/images/first.png',
+            'image': 'assets/images/classic clean bathroom.jpg',
           },
           {
             'title': 'Intense Cleaning (2 Bathrooms)',
@@ -54,7 +54,7 @@ class _ListCleaningPageState extends State<ListCleaningPage> {
               'Includes all Classic Cleaning features',
               'Specialized treatment for mold and mildew',
             ],
-            'image': 'assets/images/four.jpg',
+            'image': 'assets/images/intenceclean bathroom.jpg',
           },
           {
             'title': 'Classic Cleaning (3 Bathrooms)',
@@ -65,7 +65,7 @@ class _ListCleaningPageState extends State<ListCleaningPage> {
               'Includes all Classic Cleaning (2 Bathrooms) features',
               'Customized cleaning solution for larger bathrooms',
             ],
-            'image': 'assets/images/five.jpg',
+            'image': 'assets/images/classic clean bathroom.jpg',
           },
         ];
 
@@ -80,7 +80,7 @@ class _ListCleaningPageState extends State<ListCleaningPage> {
               'Cleaning of countertops, cabinets, and sink',
               'Degreasing of exhaust fan & tiles',
             ],
-            'image': 'assets/images/Dish-slider1.png',
+            'image': 'assets/images/basic kitchen clean.png',
           },
           {
             'title': 'Deep Kitchen Cleaning',
@@ -91,7 +91,7 @@ class _ListCleaningPageState extends State<ListCleaningPage> {
               'Includes all Basic Kitchen Cleaning features',
               'Intense scrubbing of chimneys and stove areas',
             ],
-            'image': 'assets/images/Dish-slider2.png',
+            'image': 'assets/images/deep kitchen clean.jpeg',
           },
         ];
 
@@ -106,7 +106,7 @@ class _ListCleaningPageState extends State<ListCleaningPage> {
               'Complete deep cleaning of all rooms, kitchen, and bathrooms',
               'Vacuuming and mopping of floors',
             ],
-            'image': 'assets/images/1.jpg',
+            'image': 'assets/images/full home cleaning.jpg',
           },
           {
             'title': 'Full Home Cleaning (3 BHK)',
@@ -117,7 +117,7 @@ class _ListCleaningPageState extends State<ListCleaningPage> {
               'Includes all 2 BHK Cleaning features',
               'Extra care for furniture & glass surfaces',
             ],
-            'image': 'assets/images/2.png',
+            'image': 'assets/images/full room cleaning.png',
           },
         ];
 
@@ -132,7 +132,7 @@ class _ListCleaningPageState extends State<ListCleaningPage> {
               'Shampoo cleaning and drying',
               'Removal of stains and odors',
             ],
-            'image': 'assets/images/5.jpg',
+            'image': 'assets/images/sofa cleaning.jpg',
           },
           {
             'title': 'Carpet Cleaning (Large)',
@@ -143,7 +143,7 @@ class _ListCleaningPageState extends State<ListCleaningPage> {
               'Deep vacuuming and shampooing',
               'Removes dirt, dust mites, and allergens',
             ],
-            'image': 'assets/images/6.jpg',
+            'image': 'assets/images/sofa & carpet clean.jpg',
           },
         ];
 

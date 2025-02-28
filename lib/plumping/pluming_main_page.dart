@@ -25,12 +25,12 @@ class _PlumingMainPageState extends State<PlumingMainPage> {
   }
 
   final List<Map<String, String>> items = [
-    {'image': 'assets/images/five.jpg', 'text': 'Bath Fittings'},
-    {'image': 'assets/images/first.png', 'text': 'Basin & sink'},
-    {'image': 'assets/images/sec.jpg', 'text': 'Grouting'},
-    {'image': 'assets/images/five.jpg', 'text': 'Water filter'},
-    {'image': 'assets/images/five.jpg', 'text': 'Drainage'},
-    {'image': 'assets/images/five.jpg', 'text': 'Toilet'},
+    {'image': 'assets/images/bath fitings.jpg', 'text': 'Bath Fittings'},
+    {'image': 'assets/images/basin sink.jpg', 'text': 'Basin & sink'},
+    {'image': 'assets/images/grouting.jpg', 'text': 'Grouting'},
+    {'image': 'assets/images/Water-filtration.jpg', 'text': 'Water filter'},
+    {'image': 'assets/images/trinage.jpg', 'text': 'Drainage'},
+    {'image': 'assets/images/toilet.jpg', 'text': 'Toilet'},
     // Add more items if needed
   ];
 

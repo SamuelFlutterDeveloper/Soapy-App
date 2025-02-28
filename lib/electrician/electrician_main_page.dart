@@ -25,12 +25,15 @@ class _ElectricianMainPageState extends State<ElectricianMainPage> {
   }
 
   final List<Map<String, String>> items = [
-    {'image': 'assets/images/five.jpg', 'text': 'Switch & socket'},
-    {'image': 'assets/images/first.png', 'text': 'Fan'},
-    {'image': 'assets/images/sec.jpg', 'text': 'Wall/ceiling light'},
-    {'image': 'assets/images/sec.jpg', 'text': 'Wiring'},
-    {'image': 'assets/images/sec.jpg', 'text': 'Doorbell'},
-    {'image': 'assets/images/sec.jpg', 'text': 'Inverter & stabiliser'},
+    {'image': 'assets/images/switch.jpg', 'text': 'Switch & socket'},
+    {'image': 'assets/images/fan.jpg', 'text': 'Fan'},
+    {'image': 'assets/images/wall ceiling.jpg', 'text': 'Wall/ceiling light'},
+    {'image': 'assets/images/wiring.jpg', 'text': 'Wiring'},
+    {'image': 'assets/images/doorbell.jpg', 'text': 'Doorbell'},
+    {
+      'image': 'assets/images/inverter repair.jpg',
+      'text': 'Inverter & stabiliser'
+    },
 
     // Add more items if needed
   ];

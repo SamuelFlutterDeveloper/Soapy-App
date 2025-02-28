@@ -43,7 +43,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Installation of new showers',
               'Leak fixing and water pressure adjustment',
             ],
-            'image': 'assets/images/Dish-slider1.png',
+            'image': 'assets/images/Shower Installation repair.jpg',
           },
           {
             'title': 'Tap Replacement & Fixing',
@@ -54,7 +54,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Fixing leaking taps',
               'Installation of new faucets',
             ],
-            'image': 'assets/images/6.jpg',
+            'image': 'assets/images/tap installation and repair.jpg',
           },
         ];
 
@@ -69,7 +69,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Removal of blockages',
               'Leak detection and fixing',
             ],
-            'image': 'assets/images/Dish-slider2.png',
+            'image': 'assets/images/sink unclogging repair.jpg',
           },
           {
             'title': 'Basin Installation & Replacement',
@@ -80,7 +80,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Installation of new basin & sink fittings',
               'Replacement of damaged basins & plumbing adjustments',
             ],
-            'image': 'assets/images/6.jpg',
+            'image': 'assets/images/basin installation and repair.jpeg',
           },
         ];
 
@@ -95,7 +95,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Fixing broken grout',
               'Sealing and cleaning old grout lines',
             ],
-            'image': 'assets/images/5.jpg',
+            'image': 'assets/images/tile grouting repair.jpg',
           },
           {
             'title': 'Epoxy Grouting Service',
@@ -106,7 +106,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Waterproof and stain-resistant grouting',
               'Perfect for bathrooms, kitchens, and pools',
             ],
-            'image': 'assets/images/1.jpg',
+            'image': 'assets/images/epoxy grouting repar.jpg',
           },
         ];
 
@@ -121,7 +121,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Installation of new RO filters',
               'Leak and flow check after installation',
             ],
-            'image': 'assets/images/2.png',
+            'image': 'assets/images/water purifier repair.jpeg',
           },
           {
             'title': 'Water Purifier Repair & Maintenance',
@@ -132,7 +132,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Cartridge replacement',
               'Filter cleaning and repair',
             ],
-            'image': 'assets/images/1.jpg',
+            'image': 'assets/images/water purifier repair.jpeg',
           },
         ];
 
@@ -147,7 +147,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Clearing blocked drains',
               'Checking for pipe damage',
             ],
-            'image': 'assets/images/Dish-slider1.png',
+            'image': 'assets/images/drain clean unclogging.jpeg',
           },
           {
             'title': 'Sewer Line Inspection & Cleaning',
@@ -158,7 +158,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Advanced camera inspection for blockages',
               'High-pressure cleaning of sewer pipes',
             ],
-            'image': 'assets/images/Dish-slider2.png',
+            'image': 'assets/images/sewage cleaning.jpeg',
           },
         ];
 
@@ -173,7 +173,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Fixing flush issues',
               'Replacing old toilet seats',
             ],
-            'image': 'assets/images/3.jpg',
+            'image': 'assets/images/toilet fixing.png',
           },
           {
             'title': 'New Toilet Installation',
@@ -184,7 +184,7 @@ class _ListPlumbingPageState extends State<ListPlumbingPage> {
               'Installation of new toilets',
               'Leakage and pipe fitting check',
             ],
-            'image': 'assets/images/1.jpg',
+            'image': 'assets/images/toilet installation.jpg',
           },
         ];
       default:

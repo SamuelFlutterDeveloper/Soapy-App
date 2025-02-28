@@ -43,7 +43,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Fixing faulty switches and sockets',
               'Replacing damaged wiring in outlets',
             ],
-            'image': 'assets/images/1.jpg',
+            'image': 'assets/images/switch-board-fitting.png',
           },
           {
             'title': 'New Switch & Socket Installation',
@@ -54,7 +54,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Installing new electrical sockets & switches',
               'Ensuring proper voltage & wiring safety',
             ],
-            'image': 'assets/images/6.jpg',
+            'image': 'assets/images/switch new installation.jpg',
           },
         ];
 
@@ -69,7 +69,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Fixing slow speed or noisy fans',
               'Lubrication and minor motor repairs',
             ],
-            'image': 'assets/images/Dish-slider1.png',
+            'image': 'assets/images/ceiling-fan-repairing.jpg',
           },
           {
             'title': 'Fan Installation & Replacement',
@@ -80,7 +80,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Installation of new ceiling or wall fans',
               'Replacing damaged fan regulators',
             ],
-            'image': 'assets/images/Dish-slider2.png',
+            'image': 'assets/images/fan installation repair.jpg',
           },
         ];
 
@@ -95,7 +95,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Installing wall-mounted light fixtures',
               'Ensuring proper electrical connections',
             ],
-            'image': 'assets/images/3.jpg',
+            'image': 'assets/images/wall light installation.jpg',
           },
           {
             'title': 'Ceiling Light Repair & Replacement',
@@ -106,7 +106,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Fixing flickering or non-working lights',
               'Replacing LED panels & wiring adjustments',
             ],
-            'image': 'assets/images/1.jpg',
+            'image': 'assets/images/celing light repair.jpg',
           },
         ];
 
@@ -121,7 +121,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Fixing loose or damaged wiring',
               'Short circuit troubleshooting',
             ],
-            'image': 'assets/images/Dish-slider1.png',
+            'image': 'assets/images/wire repair.jpg',
           },
           {
             'title': 'New Electrical Wiring Setup',
@@ -132,7 +132,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Complete electrical wiring for homes & offices',
               'Ensuring safety compliance and insulation',
             ],
-            'image': 'assets/images/Dish-slider1.png',
+            'image': 'assets/images/wiring repair.jpg',
           },
         ];
 
@@ -147,7 +147,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Fixing non-functional or noisy doorbells',
               'Replacing faulty wiring or buttons',
             ],
-            'image': 'assets/images/1.jpg',
+            'image': 'assets/images/doorbell installation repaiir.jpg',
           },
           {
             'title': 'Smart Doorbell Installation',
@@ -158,7 +158,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Installing smart video doorbells',
               'WiFi connectivity setup for remote access',
             ],
-            'image': 'assets/images/3.jpg',
+            'image': 'assets/images/doorbell repair.jpg',
           },
         ];
 
@@ -173,7 +173,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Battery health check & repairs',
               'Fixing power backup issues',
             ],
-            'image': 'assets/images/5.jpg',
+            'image': 'assets/images/stabilizer installation.jpg',
           },
           {
             'title': 'Voltage Stabiliser Installation',
@@ -184,7 +184,7 @@ class _ListElectricianPageState extends State<ListElectricianPage> {
               'Installing new stabilisers for home appliances',
               'Checking voltage fluctuations & safety compliance',
             ],
-            'image': 'assets/images/6.jpg',
+            'image': 'assets/images/stabilizer installation.jpg',
           },
         ];
       default:

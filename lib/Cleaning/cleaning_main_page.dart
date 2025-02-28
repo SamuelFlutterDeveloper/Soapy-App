@@ -25,10 +25,16 @@ class _CleaningMainPageState extends State<CleaningMainPage> {
   }
 
   final List<Map<String, String>> items = [
-    {'image': 'assets/images/five.jpg', 'text': 'Bathroom Cleaning'},
-    {'image': 'assets/images/first.png', 'text': 'Kitchen Cleaning'},
-    {'image': 'assets/images/sec.jpg', 'text': 'Full Home Cleaning'},
-    {'image': 'assets/images/five.jpg', 'text': 'Sofa & Carpet Cleaning'},
+    {'image': 'assets/images/bathroom.jpg', 'text': 'Bathroom Cleaning'},
+    {'image': 'assets/images/kitchen.jpg', 'text': 'Kitchen Cleaning'},
+    {
+      'image': 'assets/images/full room cleaning.png',
+      'text': 'Full Home Cleaning'
+    },
+    {
+      'image': 'assets/images/sofa cleaning.jpg',
+      'text': 'Sofa & Carpet Cleaning'
+    },
 
     // Add more items if needed
   ];

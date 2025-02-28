@@ -3,9 +3,6 @@ import 'package:soapy_app/pages/customs/colors.dart';
 import 'package:soapy_app/pest%20control/cart_page.dart';
 
 class ListPestControlPage extends StatefulWidget {
-  
-
-
   const ListPestControlPage({super.key});
 
   @override
@@ -41,7 +38,7 @@ class _ListPestControlPageState extends State<ListPestControlPage> {
         'Treatment will be completed in 2 visits with 2 weeks of gap',
         'We\'ll remove utensils before the service begins'
       ],
-      'image': 'assets/images/first.png',
+      'image': 'assets/images/pest control.jpeg',
     },
     {
       'title': 'Pest control (excludes utensil removal)',
@@ -52,7 +49,7 @@ class _ListPestControlPageState extends State<ListPestControlPage> {
         'Treatment will be completed in 2 visits with 2 weeks of gap',
         'Excludes removal of utensils & objects before the service'
       ],
-      'image': 'assets/images/four.jpg',
+      'image': 'assets/images/Termites-Pacific-Beach.webp',
     },
     {
       'title': ' Apartment Pest control (includes utensil removal)',
@@ -63,7 +60,7 @@ class _ListPestControlPageState extends State<ListPestControlPage> {
         'Spray treatment followed by gel treatment after 2 weeks',
         "We'll remove utensils before the service begin",
       ],
-      'image': 'assets/images/five.jpg',
+      'image': 'assets/images/pest control.png',
     },
   ];
 

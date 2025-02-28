@@ -75,8 +75,8 @@ class _HomeState extends State<Home> {
   Color _defaultContainerColor = Colors.white;
   Color _selectedContainerColor = Mycolor.maincolor;
 
-  Color _defaultImageColor = Colors.black;
-  Color _selectedImageColor = Colors.white;
+  // Color _defaultImageColor = Colors.black;
+  // Color _selectedImageColor = Colors.white;
 
   void _toggleHomeColor() {
     setState(() {
@@ -605,12 +605,12 @@ class _HomeState extends State<Home> {
                                     alignment: Alignment.center,
                                     children: [
                                       Image.asset(
-                                        'assets/images/home.png',
+                                        'assets/images/House.png',
                                         height: 40,
                                         width: 40,
-                                        color: _isHomeSelected
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
+                                        // color: _isHomeSelected
+                                        //     ? _selectedImageColor
+                                        //     : _defaultImageColor,
                                       ),
                                     ],
                                   ),
@@ -658,9 +658,9 @@ class _HomeState extends State<Home> {
                                         'assets/images/villas.png',
                                         height: 37,
                                         width: 37,
-                                        color: _isVillasSelected
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
+                                        // color: _isVillasSelected
+                                        //     ? _selectedImageColor
+                                        //     : _defaultImageColor,
                                       ),
                                     ],
                                   ),
@@ -708,9 +708,9 @@ class _HomeState extends State<Home> {
                                         'assets/images/appartment.png',
                                         height: 37,
                                         width: 37,
-                                        color: _isApartmentSelected
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
+                                        // color: _isApartmentSelected
+                                        //     ? _selectedImageColor
+                                        //     : _defaultImageColor,
                                       ),
                                     ],
                                   ),
@@ -758,12 +758,12 @@ class _HomeState extends State<Home> {
                                       alignment: Alignment.center,
                                       children: [
                                         Image.asset(
-                                          'assets/images/office.png',
+                                          'assets/images/officee.png',
                                           height: 37,
                                           width: 37,
-                                          color: _isOfficeSelected
-                                              ? _selectedImageColor
-                                              : _defaultImageColor,
+                                          // color: _isOfficeSelected
+                                          //     ? _selectedImageColor
+                                          //     : _defaultImageColor,
                                         ),
                                       ],
                                     ),
@@ -823,9 +823,9 @@ class _HomeState extends State<Home> {
                                         'assets/images/commercial space.png',
                                         height: 43,
                                         width: 43,
-                                        color: _isCommercialSpaceSelected
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
+                                        // color: _isCommercialSpaceSelected
+                                        //     ? _selectedImageColor
+                                        //     : _defaultImageColor,
                                       ),
                                     ],
                                   ),
@@ -891,9 +891,9 @@ class _HomeState extends State<Home> {
                                         'assets/images/event.png',
                                         height: 43,
                                         width: 43,
-                                        color: _isEventSelected
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
+                                        // color: _isEventSelected
+                                        //     ? _selectedImageColor
+                                        //     : _defaultImageColor,
                                       ),
                                     ],
                                   ),
@@ -942,9 +942,9 @@ class _HomeState extends State<Home> {
                                         'assets/images/hospital.png',
                                         height: 43,
                                         width: 43,
-                                        color: _isHospitalSelected
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
+                                        // color: _isHospitalSelected
+                                        //     ? _selectedImageColor
+                                        //     : _defaultImageColor,
                                       ),
                                     ],
                                   ),
@@ -993,12 +993,12 @@ class _HomeState extends State<Home> {
                                       alignment: Alignment.center,
                                       children: [
                                         Image.asset(
-                                          'assets/images/industrial-park.png',
+                                          'assets/images/industrial.png',
                                           height: 43,
                                           width: 43,
-                                          color: _isIndustrialParkSelected
-                                              ? _selectedImageColor
-                                              : _defaultImageColor,
+                                          // color: _isIndustrialParkSelected
+                                          //     ? _selectedImageColor
+                                          //     : _defaultImageColor,
                                         ),
                                       ],
                                     ),
@@ -1058,12 +1058,12 @@ class _HomeState extends State<Home> {
                                     alignment: Alignment.center,
                                     children: [
                                       Image.asset(
-                                        'assets/images/home.png',
+                                        'assets/images/cleaning.png',
                                         height: 40,
                                         width: 40,
-                                        color: _isCleaning
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
+                                        // color: _isCleaning
+                                        //     ? _selectedImageColor
+                                        //     : _defaultImageColor,
                                       ),
                                     ],
                                   ),
@@ -1108,12 +1108,12 @@ class _HomeState extends State<Home> {
                                     alignment: Alignment.center,
                                     children: [
                                       Image.asset(
-                                        'assets/images/villas.png',
+                                        'assets/images/pest control.png',
                                         height: 37,
                                         width: 37,
-                                        color: _isPostControl
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
+                                        // color: _isPostControl
+                                        //     ? _selectedImageColor
+                                        //     : _defaultImageColor,
                                       ),
                                     ],
                                   ),
@@ -1158,12 +1158,12 @@ class _HomeState extends State<Home> {
                                     alignment: Alignment.center,
                                     children: [
                                       Image.asset(
-                                        'assets/images/appartment.png',
+                                        'assets/images/plumbing.png',
                                         height: 37,
                                         width: 37,
-                                        color: _isPlumbing
-                                            ? _selectedImageColor
-                                            : _defaultImageColor,
+                                        // color: _isPlumbing
+                                        //     ? _selectedImageColor
+                                        //     : _defaultImageColor,
                                       ),
                                     ],
                                   ),
@@ -1211,12 +1211,12 @@ class _HomeState extends State<Home> {
                                       alignment: Alignment.center,
                                       children: [
                                         Image.asset(
-                                          'assets/images/office.png',
+                                          'assets/images/electrician.png',
                                           height: 37,
                                           width: 37,
-                                          color: _iselectrician
-                                              ? _selectedImageColor
-                                              : _defaultImageColor,
+                                          // color: _iselectrician
+                                          //     ? _selectedImageColor
+                                          //     : _defaultImageColor,
                                         ),
                                       ],
                                     ),
